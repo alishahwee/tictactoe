@@ -30,21 +30,21 @@ def player(board):
         return X
 
     # Initialize variables to keep track of turns
-    xNum = 0
-    oNum = 0
+    x_num = 0
+    o_num = 0
 
     # Count the number of Xs and Os
     for row in board:
         for cell in row:
             if cell == X:
-                xNum += 1
+                x_num += 1
             elif cell == O:
-                oNum += 1
+                o_num += 1
 
     # Since X goes first, they will always be +1 moves greater than O
-    if xNum > oNum:
+    if x_num > o_num:
         return O
-    elif xNum == oNum:
+    elif x_num == o_num:
         return X
 
 
