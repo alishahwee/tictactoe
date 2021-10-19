@@ -22,7 +22,32 @@ def player(board):
     """
     Returns player who has the next turn on a board.
     """
-    raise NotImplementedError
+
+    # If terminal board, then just return
+    if not any(EMPTY in row for row in board):
+        return
+
+    # Give X the first move
+    if board == initial_state():
+        return X
+
+    # Initialize variables to keep track of turns
+    xNum = 0
+    oNum = 0
+
+    # Count the number of Xs and Os
+    for row in board:
+        for cell in row:
+            if cell == X:
+                xNum += 1
+            elif cell == O:
+                oNum += 1
+
+    # Since X goes first, they will always be +1 moves greater than O
+    if xNum > oNum:
+        return O
+    elif xNum == oNum:
+        return X
 
 
 def actions(board):
