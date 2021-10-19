@@ -13,9 +13,7 @@ def initial_state():
     """
     Returns starting state of the board.
     """
-    return [[EMPTY, EMPTY, EMPTY],
-            [EMPTY, EMPTY, EMPTY],
-            [EMPTY, EMPTY, EMPTY]]
+    return [[EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY], [EMPTY, EMPTY, EMPTY]]
 
 
 def player(board):
@@ -54,7 +52,20 @@ def actions(board):
     """
     Returns set of all possible actions (i, j) available on the board.
     """
-    raise NotImplementedError
+
+    # If terminal board, then just return
+    if not any(EMPTY in row for row in board):
+        return
+
+    # Initialize an empty set of available actions
+    actions = set()
+
+    for i in range(3):
+        for j in range(3):
+            if board[i][j] == EMPTY:
+                actions.add((i, j))
+
+    return actions
 
 
 def result(board, action):
