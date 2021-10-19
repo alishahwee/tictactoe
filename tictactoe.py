@@ -60,6 +60,7 @@ def actions(board):
     # Initialize an empty set of available actions
     actions = set()
 
+    # Add coordinates to actions if empty
     for i in range(3):
         for j in range(3):
             if board[i][j] == EMPTY:
