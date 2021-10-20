@@ -23,7 +23,7 @@ def player(board):
     """
 
     # If terminal board, then just return
-    if not any(EMPTY in row for row in board):
+    if terminal(board):
         return
 
     # Give X the first move
@@ -55,7 +55,7 @@ def actions(board):
     """
 
     # If terminal board, then just return
-    if not any(EMPTY in row for row in board):
+    if terminal(board):
         return
 
     # Initialize an empty set of available actions
@@ -76,7 +76,7 @@ def result(board, action):
     """
 
     # Raise a ValueError if board is terminal
-    if not any(EMPTY in row for row in board):
+    if terminal(board):
         raise ValueError("Invalid action. No more plays can be made.")
 
     # Create a deepcopy (result) of the board to modify, determine the current player and action
