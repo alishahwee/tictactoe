@@ -163,4 +163,39 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
-    raise NotImplementedError
+def max_value(board):
+    """
+    Returns the highest utility value from optimal recursive plays.
+    """
+
+    # Value to compare against
+    value = -math.inf
+
+    # Base case
+    if terminal(board):
+        return utility(board)
+
+    # Determine the max value out of all the actions
+    for action in actions(board):
+        value = max(value, min_value(result(board, action)))
+
+    return value
+
+
+def min_value(board):
+    """
+    Returns the lowest utility value optimal recursive plays.
+    """
+
+    # Value to compare against
+    value = math.inf
+
+    # Base case
+    if terminal(board):
+        return utility(board)
+
+    # Determine the min value out of all the actions
+    for action in actions(board):
+        value = min(value, max_value(result(board, action)))
+
+    return value
