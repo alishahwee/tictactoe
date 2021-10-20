@@ -177,15 +177,17 @@ def minimax(board):
         if current_player == X:  # Maximizing player
             key = min_value(result(board, action))
             if key not in action_value_dict:
-                action_value_dict[key] = set()
+                action_value_dict[key] = {action}
             else:
                 action_value_dict[key].add(action)
         elif current_player == O:  # Minimizing player
             key = max_value(result(board, action))
             if key not in action_value_dict:
-                action_value_dict[key] = set()
+                action_value_dict[key] = {action}
             else:
                 action_value_dict[key].add(action)
+
+    print(action_value_dict)
 
     # Maximizing player chooses highest value and vice versa
     if current_player == X:
