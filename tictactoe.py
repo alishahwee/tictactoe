@@ -45,7 +45,7 @@ def player(board):
     # Since X goes first, they will always be +1 moves greater than O
     if x_num > o_num:
         return O
-    elif x_num == o_num:
+    elif x_num <= o_num:
         return X
 
 
