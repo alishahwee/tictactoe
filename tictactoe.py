@@ -163,6 +163,37 @@ def minimax(board):
     """
     Returns the optimal action for the current player on the board.
     """
+
+    # If terminal board, then just return
+    if terminal(board):
+        return
+
+    # Determine the current player and create a dict to map actions to values
+    current_player = player(board)
+    action_value_dict = dict()
+
+    # Populate the dict with actions corresponding to their resultant value
+    for action in actions(board):
+        if current_player == X:  # Maximizing player
+            key = min_value(result(board, action))
+            if key not in action_value_dict:
+                action_value_dict[key] = set()
+            else:
+                action_value_dict[key].add(action)
+        elif current_player == O:  # Minimizing player
+            key = max_value(result(board, action))
+            if key not in action_value_dict:
+                action_value_dict[key] = set()
+            else:
+                action_value_dict[key].add(action)
+
+    # Maximizing player chooses highest value and vice versa
+    if current_player == X:
+        return action_value_dict[max(action_value_dict)].pop()
+    elif current_player == O:
+        return action_value_dict[min(action_value_dict)].pop()
+
+
 def max_value(board):
     """
     Returns the highest utility value from optimal recursive plays.
