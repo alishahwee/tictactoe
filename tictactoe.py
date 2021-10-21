@@ -22,8 +22,8 @@ def player(board):
     Returns player who has the next turn on a board.
     """
 
-    # If no more moves possible, just return
-    if not any(EMPTY in row for row in board):
+    # If terminal board, then just return
+    if terminal(board):
         return
 
     # Give X the first move
