@@ -180,13 +180,13 @@ def minimax(board):
     # Populate the dict with actions corresponding to their resultant value
     for action in actions(board):
         if current_player == X:  # Maximizing player
-            key = min_value(result(board, action))
+            key = min_value(result(board, action), -math.inf, math.inf)
             if key not in action_value_dict:
                 action_value_dict[key] = {action}
             else:
                 action_value_dict[key].add(action)
         elif current_player == O:  # Minimizing player
-            key = max_value(result(board, action))
+            key = max_value(result(board, action), -math.inf, math.inf)
             if key not in action_value_dict:
                 action_value_dict[key] = {action}
             else:
@@ -199,7 +199,7 @@ def minimax(board):
         return random.sample(action_value_dict[min(action_value_dict)], 1)[0]
 
 
-def max_value(board):
+def max_value(board, alpha, beta):
     """
     Returns the highest utility value from optimal recursive plays.
     """
@@ -213,12 +213,15 @@ def max_value(board):
 
     # Determine the max value out of all the actions
     for action in actions(board):
-        value = max(value, min_value(result(board, action)))
+        value = max(value, min_value(result(board, action), alpha, beta))
+        if value >= beta:
+            break
+        alpha = max(alpha, value)
 
     return value
 
 
-def min_value(board):
+def min_value(board, alpha, beta):
     """
     Returns the lowest utility value optimal recursive plays.
     """
@@ -232,6 +235,9 @@ def min_value(board):
 
     # Determine the min value out of all the actions
     for action in actions(board):
-        value = min(value, max_value(result(board, action)))
+        value = min(value, max_value(result(board, action), alpha, beta))
+        if value <= alpha:
+            break
+        beta = min(beta, value)
 
     return value
