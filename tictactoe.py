@@ -187,8 +187,6 @@ def minimax(board):
             else:
                 action_value_dict[key].add(action)
 
-    print(action_value_dict)
-
     # Maximizing player chooses highest value and vice versa
     if current_player == X:
         return action_value_dict[max(action_value_dict)].pop()
