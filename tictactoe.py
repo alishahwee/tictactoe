@@ -97,18 +97,20 @@ def winner(board):
     Returns the winner of the game, if there is one.
     """
 
-    # Find the the player that just played and initialize a set for their cumulative actions
-    previous_player = X if player(board) == O else O
-    cumulative_actions = set()
+    # Initialize a set of cumulative actions for each player
+    x_cumulative_actions = set()
+    o_cumulative_actions = set()
 
     # Add all actions made by previous player to cumulative actions
     for i in range(3):
         for j in range(3):
-            if board[i][j] == previous_player:
-                cumulative_actions.add((i, j))
+            if board[i][j] == X:
+                x_cumulative_actions.add((i, j))
+            elif board[i][j] == O:
+                o_cumulative_actions.add((i, j))
 
     # Return if cumulative actions are less than 3 (not possible to win under 3 moves)
-    if len(cumulative_actions) < 3:
+    if len(x_cumulative_actions) < 3 and len(o_cumulative_actions) < 3:
         return
 
     # Define possible winning states
@@ -123,9 +125,11 @@ def winner(board):
         frozenset([(2, 0), (1, 1), (0, 2)]),
     }
 
-    # If winning state in cumulative actions, return previous player, else return
-    if cumulative_actions in winning_states:
-        return previous_player
+    # If cumulative action is superset of any winning state, return winner, else return
+    if any(x_cumulative_actions.issuperset(state) for state in winning_states):
+        return X
+    elif any(o_cumulative_actions.issuperset(state) for state in winning_states):
+        return O
     else:
         return
 
