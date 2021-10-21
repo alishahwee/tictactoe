@@ -4,6 +4,7 @@ Tic Tac Toe Player
 
 import math
 import copy
+import random
 
 X = "X"
 O = "O"
@@ -193,9 +194,9 @@ def minimax(board):
 
     # Maximizing player chooses highest value and vice versa
     if current_player == X:
-        return action_value_dict[max(action_value_dict)].pop()
+        return random.sample(action_value_dict[max(action_value_dict)], 1)[0]
     elif current_player == O:
-        return action_value_dict[min(action_value_dict)].pop()
+        return random.sample(action_value_dict[min(action_value_dict)], 1)[0]
 
 
 def max_value(board):
